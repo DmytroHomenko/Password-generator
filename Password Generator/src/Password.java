@@ -8,24 +8,26 @@ public class Password {
         Length = s.length();
     }
 
+
+    // Criteria of rating
     public int CharType(char C) {
         int val;
 
-        // Char is Uppercase Letter
+        // uppercase
         if ((int) C >= 65 && (int) C <= 90)
             val = 1;
 
-        // Char is Lowercase Letter
+        // lowercase
         else if ((int) C >= 97 && (int) C <= 122) {
             val = 2;
         }
 
-        // Char is Digit
+        // nums
         else if ((int) C >= 60 && (int) C <= 71) {
             val = 3;
         }
 
-        // Char is Symbol
+        // symbols
         else {
             val = 4;
         }
@@ -33,10 +35,14 @@ public class Password {
         return val;
     }
 
+    // System of rating
+
     public int PasswordStrength() {
         String s = this.Value;
         boolean UsedUpper = false;
         boolean UsedLower = false;
+        boolean UsedUpperUkr = false;
+        boolean UsedLowerUkr = false;
         boolean UsedNum = false;
         boolean UsedSym = false;
         int type;
@@ -48,12 +54,16 @@ public class Password {
 
             if (type == 1) UsedUpper = true;
             if (type == 2) UsedLower = true;
-            if (type == 3) UsedNum = true;
-            if (type == 4) UsedSym = true;
+            if (type == 3) UsedUpperUkr = true;
+            if (type == 4) UsedLowerUkr = true;
+            if (type == 5) UsedNum = true;
+            if (type == 6) UsedSym = true;
         }
 
         if (UsedUpper) Score += 1;
         if (UsedLower) Score += 1;
+        if (UsedUpperUkr) Score += 1;
+        if (UsedLowerUkr) Score += 1;
         if (UsedNum) Score += 1;
         if (UsedSym) Score += 1;
 
@@ -62,18 +72,22 @@ public class Password {
 
         return Score;
     }
-
+    // Answers
     public String calculateScore() {
         int Score = this.PasswordStrength();
 
-        if (Score == 6) {
-            return "This is a very good password :D check the Useful Information section to make sure it satisfies the guidelines";
+        if (Score >= 6) {
+            return "It's very strong password! :D \n" +
+                    "Du u want to read information how to improve it?";
         } else if (Score >= 4) {
-            return "This is a good password :) but you can still do better";
+            return "That's good password ! :) \n" +
+                    "But u can better!";
         } else if (Score >= 3) {
-            return "This is a medium password :/ try making it better";
+            return "That's normal password :/ \n" +
+                    "Should we improve it?";
         } else {
-            return "This is a weak password :( definitely find a new one";
+            return "U'r password is weak :( \n" +
+                    "Let's make something stronger!";
         }
     }
 
